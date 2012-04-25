@@ -1,24 +1,46 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
 <%@ page contentType="text/html;charset=UTF-8"%>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page session="false"%>
-<html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<title>Home</title>
+<title>Everwant</title>
+<link rel="stylesheet" href="resources/css/main.css" type="text/css"></link>
+<link rel="stylesheet" href="resources/css/colors.css" type="text/css"></link>
+<link rel="stylesheet" href="resources/css/local.css" type="text/css"></link>
 </head>
 <body>
-	<h1>Hello world!</h1>
-	<p>
-		<c:forEach items="${stuffs}" var="stuff">
-		${stuff}
-		<br />
-		</c:forEach>
-	</p>
-                <h2>Stuff List:</h2>
-                <div id='new-company-link'>
-                    <a href="stuff/new" title="Add a new stuff">Add a new stuff</a>
-                </div>
+	<div id="page">
+		<div id="header">
+			<div id="main-title">
+				<div id='site-name'>
+					<a href="/" title="Cloudfoundry Spring Demo">This is a demo of
+						Cloudfoundry Spring with MongoDB</a>
+				</div>
+				<div id='company-name'>
+					<a href="http://www.springsource.com" title="SpringSource">SpringSource
+						Home</a>
+				</div>
+			</div>
+		</div>
+		<!-- /header -->
+		<div id="container">
+			<div id="content" class="no-side-nav">
+				<h1>Welcome</h1>
+				<h2>User List</h2>
+
+				<ul>
+					<li><a href="#">uer1</a></li>
+					<li><a href="#">uer2</a></li>
+				</ul>
+
+
+			</div>
+		</div>
+	</div>
+
 </body>
 </html>
+
