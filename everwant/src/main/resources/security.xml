@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:oauth="http://www.springframework.org/schema/security/oauth2"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+              http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.1.xsd
+              http://www.springframework.org/schema/security/oauth2 http://www.springframework.org/schema/security/spring-security-oauth2.xsd">
+
+	<!-- New in Spring Security 3.1 -->
+	<!-- <http pattern="/css/**" security="none"/> -->
+
+	<http auto-config="true">
+
+		<form-login login-page="/login" authentication-failure-url="/login?error=true"
+			login-processing-url="/j_security_check" />
+		<http-basic />
+		<logout logout-url="/logout" />
+		<remember-me user-service-ref="userService"
+			key="e37f4b31-0c45-11dd-bd0b-0800200c9a66" use-secure-cookie="true" />
+	</http>
+
+	<authentication-manager alias="authenticationManager">
+		<authentication-provider>
+			<password-encoder hash="sha" />
+			<user-service id="userService">
+				<user name="user" password="12dea96fec20593566ab75692c9949596833adc9"
+					authorities="ROLE_USER" />
+				<user name="admin" password="d033e22ae348aeb5660fc2140aec35850c4da997"
+					authorities="ROLE_ADMIN" />
+			</user-service>
+		</authentication-provider>
+	</authentication-manager>
+
+</beans:beans>
