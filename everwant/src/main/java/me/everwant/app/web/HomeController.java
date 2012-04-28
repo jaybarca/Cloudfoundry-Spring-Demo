@@ -1,15 +1,14 @@
 package me.everwant.app.web;
 
 import java.text.DateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
 import javax.inject.Inject;
 
-import me.everwant.app.domain.Stuff;
-import me.everwant.app.service.StuffService;
+import me.everwant.app.data.UserRepository;
+import me.everwant.app.domain.User;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,7 +27,7 @@ public class HomeController {
 			.getLogger(HomeController.class);
 
 	@Inject
-	private StuffService stuffService;
+	private UserRepository userRepository;
 
 	/**
 	 * Simply selects the home view to render by returning its name.
@@ -44,23 +43,21 @@ public class HomeController {
 		String formattedDate = dateFormat.format(date);
 
 		model.addAttribute("serverTime", formattedDate);
-		List<Stuff> stuffs = stuffService.listStuffs();
+		List<User> users = userRepository.findAll();
 
-		if (stuffs != null) {
-			logger.info("stuff size: " + stuffs.size());
+		if (users != null) {
 
-			List<String> stuffNames = new ArrayList<String>();
-			for (Stuff stuff : stuffs) {
-				stuffNames.add(stuff.getName());
-			}
-			model.addAttribute("stuffs", stuffNames);
-
+			model.addAttribute("users", users);
 		} else {
-			logger.info("stuff size is zero ");
+			logger.info("no user registered yet.");
 		}
 
 		return "home";
 	}
 
+	@RequestMapping(value = "/login", method = RequestMethod.GET)
+	public String login() {
+		return "login";
+	}
 
 }

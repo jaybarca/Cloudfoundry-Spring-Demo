@@ -10,24 +10,30 @@
 	<!-- <http pattern="/css/**" security="none"/> -->
 
 	<http auto-config="true">
-
 		<form-login login-page="/login" authentication-failure-url="/login?error=true"
 			login-processing-url="/j_security_check" />
-		<http-basic />
 		<logout logout-url="/logout" />
-		<remember-me user-service-ref="userService"
-			key="e37f4b31-0c45-11dd-bd0b-0800200c9a66" use-secure-cookie="true" />
+		<remember-me key="e37f4b31-0c45-11dd-bd0b-0800200c9a66" />
 	</http>
 
+
+
+	<beans:bean id="passwordEncoder" class="me.everwant.app.MyShaPasswordEncoder">
+		<beans:constructor-arg value="512" />
+	</beans:bean>
+
+
+	<beans:bean id="customerUserDetailsService" class="me.everwant.app.service.MongoDBUserService">
+		<beans:property name="mongoTemplate" ref="mongoTemplate"></beans:property>
+	</beans:bean>
+
 	<authentication-manager alias="authenticationManager">
-		<authentication-provider>
-			<password-encoder hash="sha" />
-			<user-service id="userService">
-				<user name="user" password="12dea96fec20593566ab75692c9949596833adc9"
-					authorities="ROLE_USER" />
-				<user name="admin" password="d033e22ae348aeb5660fc2140aec35850c4da997"
-					authorities="ROLE_ADMIN" />
-			</user-service>
+		<authentication-provider user-service-ref="customerUserDetailsService">
+			<password-encoder ref='passwordEncoder'>
+				<salt-source user-property='username' />
+			</password-encoder>
+			<!-- <user-service> <user name="jay" password="1c715b8cdf39e9384ac4103d27628ec3f07f04eb715d4f0f73fd57ccee714b21ee9d9bcffe4e442088ed307470214e9aeae00bccb9f9a03d7d49da2cdedf9adf" 
+				authorities="ROLE_USER" /> </user-service> -->
 		</authentication-provider>
 	</authentication-manager>
 

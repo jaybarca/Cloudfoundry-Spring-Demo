@@ -16,8 +16,8 @@ public class StuffServiceImpl implements StuffService {
 	private static final Logger logger = LoggerFactory
 			.getLogger(StuffServiceImpl.class);
 
-	@Autowired(required = false)
-	MongoTemplate mongoTemplate;
+	@Autowired
+	private MongoTemplate mongoTemplate;
 
 	public List<Stuff> listStuffs() {
 
